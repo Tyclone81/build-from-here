@@ -1,1 +1,2 @@
 # build-from-here
+this is the publication for the buildfromhere project, a project meant to be used as a basis to understand the coding architecture from the least complex program advancing gradually the complexity radar.
