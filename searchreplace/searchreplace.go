@@ -3,21 +3,21 @@
 //If the second argument is not contained in the first one (the string) then the program rewrites the string followed by a newline ('\n').
 package main
 import (
-	//"os"
+	"os"
 	"github.com/01-edu/z01"
 ) 
-func searchReplace(str string, oldchar string, newchar string) {
-
+func main() {
 	// get command line arguments
-	// args:= os.Args
+	args:= os.Args
+
 	//confirm we only have 4 arguments i.e, program name and the 3 input arguments
-	//if len(args) != 4 {
-	//return
-	//}
+	if len(args) != 4 {
+		return
+	}
 	// define the arguments
-	//str := args[1]
-	//oldChar :=args[2]
-	//newCgar :=args[3]
+	str := args[1]
+	oldchar :=args[2]
+	newchar :=args[3]
 
 	//loop through the input string character by character checking if the character equals the oldchar
 	for i := 0; i < len(str); i++ {
@@ -32,8 +32,4 @@ func searchReplace(str string, oldchar string, newchar string) {
 	}
 	z01.PrintRune('\n')
 }
-
-func main() {
-	searchReplace("something", "a", "o", "b", "c")
-} 
 
