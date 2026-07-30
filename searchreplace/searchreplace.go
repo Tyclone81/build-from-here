@@ -23,6 +23,7 @@ func main() {
 	for i := 0; i < len(str); i++ {
 		char:= str[i]
 		if string(char) == oldchar {
+			//loop through replacing the oldchar with newchar, for all the instances it occurs in the string
 			for _, r := range newchar {
 				z01.PrintRune(rune(r))
 			}
