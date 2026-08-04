@@ -10,12 +10,15 @@ func CamelToSnakeCase(s string) string{
 		return ""
 	}
 	for i := 0; i < len(s); i++ {
+		//check if the character is not a letter
 		if s[i] < 'A' || (s[i] > 'Z' && s[i] < 'a') || s[i] > 'z' {
 			return s
 		}
+		//check that the text does not have capital letters following each other
 		if i < len(s) - 1 && s[i] >= 'A' && s[i] <= 'Z' && s[i+1] >= 'A' && s[i+1] <= 'Z' {
 			return s
 		}
+		//check that text does not end with a capital letter case
 		lastChar := s[len(s) - 1]
 		if lastChar >= 'A' && lastChar <= 'Z' {
 			return s
@@ -23,10 +26,12 @@ func CamelToSnakeCase(s string) string{
 	}
 	result := ""
 	for i := 0; i < len(s); i++ {
+		//if the character is uppercase and its index position is not zero, add underscore before it
 		if s[i] >= 'A' && s[i] <= 'Z' {
 			if i != 0 {
 				result += "_"
 			}
+			//convert the upper to lower case (optional in this exercise)
 			result += string(s[i] + 32)
 		} else {
 			result += string(s[i])
