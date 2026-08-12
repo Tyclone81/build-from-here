@@ -10,9 +10,13 @@ func IsCapitalized(s string) bool {
 		return false
 	}
 	for i := 0; i < len(s); i++ {
+
+		//a flag wordStart to track if we are at the beginning of a word
 		wordStart := (i == 0) || (i > 0 && s[i-1] == ' ')
 
 		if wordStart {
+			
+			//if we are, check if the first letter is capital
 			if s[i] >= 'a' && s[i] <= 'z' {
 				return false
 			}
