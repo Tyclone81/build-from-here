@@ -22,12 +22,14 @@ func Slice(a []string, nbrs... int) []string{
 	//default end of slice is end of string
 	end := len(a)
 
+	//in cases with 2 intergers or more, end of slice is the integer at index 1
 	if len(nbrs) >= 2 {
 		end = nbrs[1]
 		if end < 0 {
 		end = len(a) + end
 		}
 	}
+	//clamp the indices to a valid range
 	if start < 0 {
 		start = 0
 	}
@@ -37,6 +39,7 @@ func Slice(a []string, nbrs... int) []string{
 	if start >= end {
 		return nil
 	}
+	//return a slice of the input string from the defined start to end
 	return a[start:end]
 }
 
@@ -48,9 +51,3 @@ func main(){
     fmt.Printf("%#v\n", Slice(a, -2, -1))
     fmt.Printf("%#v\n", Slice(a, 2, 0))
 }
-
-[]string{"algorithm", "ascii", "package", "golang"}
-[]string{"ascii", "package"}
-[]string{"ascii", "package", "golang"}
-[]string{"package"}
-[]string(nil)
