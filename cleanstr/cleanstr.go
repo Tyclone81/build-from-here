@@ -6,4 +6,53 @@ A "word" is defined as a part of a string delimited either by spaces/tabs, or by
 If the number of arguments is not 1, or if there are no words to display, the program displays a newline("\n"). */
 
 package main
-import ()
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+func main() {
+	// Check if exactly 1 argument is provided (os.Args[0] is the program name, os.Args[1] is the input)
+	if len(os.Args) != 2 {
+		z01.PrintRune('\n')
+		return
+	}
+
+	s := os.Args[1]
+	var words []string
+	word := ""
+
+	// Iterate through the string to extract words delimited by spaces or tabs
+	for i := 0; i < len(s); i++ {
+		if s[i] == ' ' || s[i] == '\t' {
+			if len(word) > 0 {
+				words = append(words, word)
+				word = ""
+			}
+		} else {
+			word += string(s[i])
+		}
+	}
+	// Append the trailing word if present
+	if len(word) > 0 {
+		words = append(words, word)
+	}
+
+	// If there are no words, print newline and exit
+	if len(words) == 0 {
+		z01.PrintRune('\n')
+		return
+	}
+
+	// Print words with a single space between them
+	for i, w := range words {
+		if i > 0 {
+			z01.PrintRune(' ')
+		}
+		for _, r := range w {
+			z01.PrintRune(r)
+		}
+	}
+	z01.PrintRune('\n')
+}
