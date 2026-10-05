@@ -13,8 +13,8 @@
 			"fmt"
 	)
     
-    // WordAnatomy dissects a word into its prefix, root, and suffix.
-    func WordAnatomy(word string) (string, string, string) {
+    // WordAnatomy dissects a word into its constituent prefix and suffix (returning 2 strings, excluding the root).
+    func WordAnatomy(word string) (string, string) {
 		//fixed-size array containing the 10 given prefixes
         prefixes := [...]string{
             "un", "re", "pre", "mis", "dis",
@@ -64,10 +64,8 @@
             }
         }
     
-        // 4. Extract root
-        root := word[len(bestPrefix) : len(word)-len(bestSuffix)]
-    
-        return bestPrefix, root, bestSuffix
+        // 4. Return prefix and suffix only (root is intentionally omitted per requirements)
+        return bestPrefix, bestSuffix
     }
 
 	func main() {
@@ -84,7 +82,8 @@
 	}
 
 	for _, word := range tests {
-		prefix, root, suffix := WordAnatomy(word)
-		fmt.Printf("%s -> Prefix:%q Root:%q Suffix:%q ", word, prefix, root, suffix)
+		// WordAnatomy now returns only 2 values: prefix and suffix
+		prefix, suffix := WordAnatomy(word)
+		fmt.Printf("%s -> Prefix:%q Suffix:%q\n", word, prefix, suffix)
 	}
 }
