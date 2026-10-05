@@ -12,14 +12,18 @@ import (
 )
 
 func HashCode(dec string) string {
-	result:= "" //empty variable to store our hashed function
+	result := ""
 
-	for i:= 0; i<len(dec); i++ {
-		char:= dec[i]
+	for i := 0; i < len(dec); i++ {
+		char := dec[i]
+		// Apply hash formula: offset ASCII by string length and wrap within 7-bit ASCII (0-126)
 		hash := (int(char) + len(dec)) % 127
+
+		// Shift unprintable characters (< 33) into the printable ASCII range
 		if hash < 33 {
 			hash += 33
 		}
+
 		result += string(rune(hash))
 	}
 	return result
