@@ -5,8 +5,23 @@ package main
 import "fmt"
 
 func ConcatSlice(slice1, slice2 []int) []int {
+	// easiest option
 	// Directly append the entire second slice to the first one using the ... unpack operator
-	return append(slice1, slice2...)
+	// return append(slice1, slice2...)
+
+	result := make([]int, len(slice1) + len(slice2))
+
+	idx := 0
+
+	for i := 0; i < len(slice1); i++ {
+		result[idx] = slice1[i]
+		idx++
+	}
+	for i := 0; i < len(slice2); i++ {
+		result[idx] = slice2[i]
+		idx++
+	}
+	return result
 }
 
 func main() {
