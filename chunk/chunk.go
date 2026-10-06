@@ -43,3 +43,25 @@ func main() {
 	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 5)
 	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 4)
 }
+
+//alternative version
+
+/*func Chunk(slice []int, size int) [][]int {
+	if size <= 0 {
+		z01.PrintRune('\n')
+		return nil
+	}
+
+	var result [][]int
+
+	for i := 0; i < len(slice); i += size {
+		end := i + size
+		if end > len(slice) {
+			end = len(slice)
+		}
+		result = append(result, slice[i:end])
+	}
+
+	return result
+}
+*/
