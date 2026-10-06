@@ -51,21 +51,24 @@ func main() {
 			sum += i
 		}
 	}
-	//4. logic to print a multi-digit number
+	// Step 4: Turn the sum into a readable string of text
+	sumText := ""
+	
 	if sum == 0 {
-		z01.PrintRune('0')
-	} else {  // else break the sum into digits backwards using an array storage
-		var digits [20]rune
-		idx := 0
-		for sum > 0 {
-			digits[idx] = rune('0' + (sum%10))
-			sum /= 10
-			idx++
-		}
-		//finally print the digits in correct human reading order
-		for i := idx - 1; i >= 0; i-- {
-			z01.PrintRune(digits[i])
-		}
+		sumText = "0"
 	}
+	// itoa
+	for sum > 0 { 
+		digit := string(rune('0' + sum % 10)) // Converts the raw math number to a text letter
+		sumText = digit + sumText              // Pastes it onto the front of our text string
+		sum = sum/10                                  // Chops off the last digit from our sum
+	}
+
+	// Now print our clean text string, character by character
+	for i := 0; i < len(sumText); i++ {
+		z01.PrintRune(rune(sumText[i]))
+	}
+
 	z01.PrintRune('\n')
+	
 }
