@@ -20,39 +20,28 @@ func main() {
 	}
 
 	s := os.Args[1]
-	var words []string
-	word := ""
+	//tracking flags
+	inWord := false
+	wordEnded := false
 
-	// Iterate through the string to extract words delimited by spaces or tabs
-	for i := 0; i < len(s); i++ {
-		if s[i] == ' ' || s[i] == '\t' {
-			if len(word) > 0 {
-				words = append(words, word)
-				word = ""
+	//single-pass loop execution
+	for _, char := range s {
+		if char != ' ' && char != '\t' {
+			if wordEnded && !inWord {		//if previous word ended and a new one is starting, print one space delimeter
+				z01.PrintRune(' ')
+				wordEnded = false
 			}
+
+			z01.PrintRune(char)
+			inWord = true
 		} else {
-			word += string(s[i])
+		// If we leave a word and step into whitespace, mark it as ended
+			if inWord {
+			wordEnded = true
+			inWord = false
+			}
 		}
-	}
-	// Append the trailing word if present
-	if len(word) > 0 {
-		words = append(words, word)
-	}
-
-	// If there are no words, print newline and exit
-	if len(words) == 0 {
-		z01.PrintRune('\n')
-		return
-	}
-
-	// Print words with a single space between them
-	for i, w := range words {
-		if i > 0 {
-			z01.PrintRune(' ')
-		}
-		for _, r := range w {
-			z01.PrintRune(r)
-		}
-	}
+	} 
+	//3. always print a trailing newline if args were valid
 	z01.PrintRune('\n')
 }
