@@ -8,39 +8,45 @@
     
     import "fmt"
     
-    // LongestWord returns the first word with the maximum length in string s
-    func LongestWord(s string) string {
-        longest := ""
-        currentWord := ""
-    
-        for i := 0; i < len(s); i++ {
-            // Check if the current character is a delimiter (space or tab)
-            if s[i] == ' ' || s[i] == '\t' {
-                // When encountering a delimiter, check if the word just ended is strictly longer
-                if len(currentWord) > len(longest) {
-                    longest = currentWord
-                }
-                // Reset current word buffer
-                currentWord = ""
-            } else {
-                // Append character to the current word being built
-                currentWord += string(s[i])
-            }
-        }
-    
-        // Check the trailing word at the end of the string
-        if len(currentWord) > len(longest) {
-            longest = currentWord
-        }
-    
-        // Return the longest word followed by a newline
-        return longest + "\n"
+    func LongestWord(arr string) string {
+	longest := ""
+	current := ""
+	hasDigit := false // Tracks if the current word has any numbers
+
+	for i := 0; i < len(arr); i++ {
+		if arr[i] != ' ' && arr[i] != '\t' && arr[i] != '\n' {
+			// If the character is a digit, flag it
+			if arr[i] >= '0' && arr[i] <= '9' {
+				hasDigit = true
+			}
+			current += string(arr[i])
+		} else {
+			// Only check the length if the word has NO digits
+			if !hasDigit && len(current) > len(longest) {
+				longest = current
+			}
+			current = "" 
+			hasDigit = false // Reset the flag for the next word
+		}
+	}
+
+	// Check the final word remaining after the loop ends
+	if !hasDigit && len(current) > len(longest) {
+		longest = current
+	}
+
+	return longest + "\n"
     }
-    
+
     func main() {
-        fmt.Print(LongestWord("The quick brown fox jumps over the lazy dog"))
-        fmt.Print(LongestWord("  one   three  seven  eleven  "))
-        fmt.Print(LongestWord("tie cat dog"))
-        fmt.Print(LongestWord("       "))
-        fmt.Print(LongestWord(""))
-    }
+	fmt.Println(LongestWord("Hello i am a girl"))               // Expected: "Hello"
+	fmt.Println(LongestWord("Hel2lo i am a girl"))             // Expected: "girl" ("Hel2lo" is ignored)
+	fmt.Println(LongestWord("Hello i am a girrrrrrrrrl"))       // Expected: "girrrrrrrrrl"
+	fmt.Println(LongestWord("Hello i am a umemen2yanawekoce"))   // Expected: "umemenyanawekoce"
+	fmt.Println(LongestWord("123 123uijjj42"))                  // Expected: "" (Both have digits)
+    fmt.Print(LongestWord("The quick brown fox jumps over the lazy dog"))
+    fmt.Print(LongestWord("  one   three  seven  eleven  "))
+    fmt.Print(LongestWord("tie cat dog"))
+    fmt.Print(LongestWord("       "))
+    fmt.Print(LongestWord(""))
+}
