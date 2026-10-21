@@ -35,3 +35,23 @@ func main() {
 	fmt.Println(HashCode("BAC"))
 	fmt.Println(HashCode("Hello World"))
 }
+
+
+/*  func HashCode(dec string) string {
+        n := len(dec)
+        result := make([]byte, 0, n)
+    
+        for _, char := range dec {
+            // Apply hash formula
+            hash := (int(char) + n) % 127
+
+            // Unprintable control characters are 0 to 31 (32 is space, which is printable)
+            if hash < 32 {
+                hash += 33
+            }
+
+            result = append(result, byte(hash))
+        }
+        return string(result)
+    }
+*/
