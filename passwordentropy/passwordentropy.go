@@ -23,6 +23,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"unicode"
 )
 
 // PasswordEntropy calculates the information entropy in bits for a given password,
@@ -42,18 +43,15 @@ func PasswordEntropy(password string) float64 {
 	hasSpecial := false
 
 	// Step 3: Scan each character to classify its category.
-	for i := 0; i < length; i++ {
-		ch := password[i]
+	for _, char := range password {
 		switch {
-		case ch >= 'a' && ch <= 'z':
+		case unicode.IsLower(char):
 			hasLower = true
-		case ch >= 'A' && ch <= 'Z':
+		case unicode.IsUpper(char):
 			hasUpper = true
-		case ch >= '0' && ch <= '9':
+		case unicode.IsDigit(char):
 			hasDigit = true
-		case ch >= 32 && ch <= 126:
-			// Printable ASCII characters (32 to 126) that are not alphanumeric
-			// fall into the symbol/special character set.
+		case char >= 32 && char <= 126:
 			hasSpecial = true
 		}
 	}
@@ -80,11 +78,9 @@ func PasswordEntropy(password string) float64 {
 
 	// Step 5: Compute information entropy using Shannon's formula:
 	// E = L * log2(R)
-	entropy := float64(length) * math.Log2(float64(poolSize))
+	// Use math.Log2 for base-2 logarithm.(return math.Round(entropy*100) / 100)
+	return float64(length) * math.Log2(float64(poolSize))
 
-	// Step 6: Round to 2 decimal places.
-	// math.Round rounds to the nearest integer.
-	return math.Round(entropy*100) / 100
 }
 
  func main() {
