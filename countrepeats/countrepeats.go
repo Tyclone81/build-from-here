@@ -3,29 +3,47 @@ Write a function CountRepeats() that takes a string as an argument and returns t
 
 If the string is empty or contains no consecutive repeats, the function returns 0.
 */
-
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func CountRepeats(s string) int {
-	if len(s) == 0 {
-		return 0
+func CountRepeats(s string) string {
+	if s == "" {
+		return ""
 	}
 
-	count := 0
-	// Loop through string from the second character and compare with previous character
-	for i := 1; i < len(s); i++ {
-		if s[i] == s[i-1] {
-			count++
+	result := ""
+	counter := 1
+
+	for i := 0; i < len(s)-1; i++ {
+		if s[i] == s[i+1] {
+			counter++
+		} else {
+			result += string(s[i])
+			// Only append the counter if it's greater than 1
+			if counter > 1 {
+				result += string(rune(counter + '0'))
+			}
+			counter = 1
 		}
 	}
-	return count
+
+	// Handle the last character group
+	result += string(s[len(s)-1])
+	if counter > 1 {
+		result += string(rune(counter + '0'))
+	}
+
+	return result
 }
 
 func main() {
-	fmt.Println(CountRepeats("aaabbcdddd")) // 6 ('a': 2 repeats, 'b': 1 repeat, 'd': 3 repeats)
-	fmt.Println(CountRepeats("abc"))        // 0
-	fmt.Println(CountRepeats("aabbcc"))     // 3
-	fmt.Println(CountRepeats(""))           // 0
+	fmt.Println(CountRepeats("aaabbbccc")) // Output: a3b3c3
+	fmt.Println(CountRepeats("abc"))       // Output: abc
+	fmt.Println(CountRepeats("abbccc"))    // Output: ab2c3
+	fmt.Println(CountRepeats("aaabbcdddd")) 
+	fmt.Println(CountRepeats(""))
 }
+
